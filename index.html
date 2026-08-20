@@ -18,8 +18,8 @@
       <div class="flex items-center space-x-2">
         <span class="text-amber-500 font-bold text-xl tracking-wide uppercase">Autojumble Live</span>
       </div>
-      <button onclick="toggleModal('addModal')" class="bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold text-xs py-1.5 px-3 rounded transition flex items-center gap-1">
-        <span>+ List a Part</span>
+      <button onclick="loadMasterJSON()" class="bg-slate-700 hover:bg-slate-600 text-slate-200 text-xs py-1.5 px-3 rounded transition flex items-center gap-1 border border-slate-600">
+        <span>↻ Refresh</span>
       </button>
     </div>
   </header>
@@ -31,7 +31,7 @@
       <div>
         <span class="text-xs text-amber-400 font-mono font-semibold uppercase">Event Marketplace</span>
         <h1 class="text-xl font-bold text-white">Showground Parts & Click/Collect</h1>
-        <p class="text-xs text-slate-400 mt-0.5">Find parts on-site or reserve before walking the field.</p>
+        <p class="text-xs text-slate-400 mt-0.5">Browse live listings or reserve before walking the field.</p>
       </div>
       <button onclick="exportJSON()" class="bg-slate-700 hover:bg-slate-600 text-slate-300 text-[11px] font-mono py-1 px-2.5 rounded border border-slate-600 transition">
         Export JSON
@@ -40,150 +40,88 @@
 
     <!-- Category Filters -->
     <div class="flex gap-2 overflow-x-auto no-scrollbar pb-1">
-      <button onclick="filterCategory('All')" class="cat-btn active-cat bg-amber-500 text-slate-900 font-bold text-xs px-3.5 py-1.5 rounded-full whitespace-nowrap transition">All Parts</button>
-      <button onclick="filterCategory('Engine')" class="cat-btn bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700 text-xs px-3.5 py-1.5 rounded-full whitespace-nowrap transition">Engine & Drivetrain</button>
-      <button onclick="filterCategory('Bodywork')" class="cat-btn bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700 text-xs px-3.5 py-1.5 rounded-full whitespace-nowrap transition">Bodywork & Trim</button>
-      <button onclick="filterCategory('Wheels')" class="cat-btn bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700 text-xs px-3.5 py-1.5 rounded-full whitespace-nowrap transition">Wheels & Tyres</button>
-      <button onclick="filterCategory('Wanted')" class="cat-btn bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700 text-xs px-3.5 py-1.5 rounded-full whitespace-nowrap transition">Parts Wanted</button>
+      <button onclick="filterCategory('All', event)" class="cat-btn active-cat bg-amber-500 text-slate-900 font-bold text-xs px-3.5 py-1.5 rounded-full whitespace-nowrap transition">All Parts</button>
+      <button onclick="filterCategory('Engine', event)" class="cat-btn bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700 text-xs px-3.5 py-1.5 rounded-full whitespace-nowrap transition">Engine & Drivetrain</button>
+      <button onclick="filterCategory('Bodywork', event)" class="cat-btn bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700 text-xs px-3.5 py-1.5 rounded-full whitespace-nowrap transition">Bodywork & Trim</button>
+      <button onclick="filterCategory('Wheels', event)" class="cat-btn bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700 text-xs px-3.5 py-1.5 rounded-full whitespace-nowrap transition">Wheels & Tyres</button>
+      <button onclick="filterCategory('Wanted', event)" class="cat-btn bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700 text-xs px-3.5 py-1.5 rounded-full whitespace-nowrap transition">Parts Wanted</button>
     </div>
 
     <!-- Parts List Container -->
     <div id="partsContainer" class="space-y-3">
-      <!-- Dynamic listings will be injected here -->
+      <!-- Dynamic listings injected here -->
     </div>
 
   </main>
 
-  <!-- Add Part Modal -->
-  <div id="addModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5 max-w-md w-full shadow-2xl relative space-y-4">
-      <div class="flex justify-between items-center border-b border-slate-700 pb-2">
-        <h3 class="text-base font-bold text-white">List an Autojumble Item</h3>
-        <button onclick="toggleModal('addModal')" class="text-slate-400 hover:text-white text-sm">✕</button>
-      </div>
-
-      <form id="partForm" onsubmit="handlePartSubmit(event)" class="space-y-3 text-xs">
-        <div>
-          <label class="block text-slate-400 mb-1">Item Title</label>
-          <input type="text" id="partTitle" placeholder="e.g. Ford Escort Mk1 Twin Weber 40s" required class="w-full bg-slate-900 border border-slate-700 rounded p-2 text-white focus:outline-none focus:border-amber-500">
-        </div>
-
-        <div class="grid grid-cols-2 gap-2">
-          <div>
-            <label class="block text-slate-400 mb-1">Price (£)</label>
-            <input type="text" id="partPrice" placeholder="e.g. 250 or Offers" required class="w-full bg-slate-900 border border-slate-700 rounded p-2 text-white focus:outline-none focus:border-amber-500">
-          </div>
-          <div>
-            <label class="block text-slate-400 mb-1">Category</label>
-            <select id="partCategory" class="w-full bg-slate-900 border border-slate-700 rounded p-2 text-white focus:outline-none focus:border-amber-500">
-              <option value="Engine">Engine & Drivetrain</option>
-              <option value="Bodywork">Bodywork & Trim</option>
-              <option value="Wheels">Wheels & Tyres</option>
-              <option value="Interior">Interior</option>
-              <option value="Wanted">Parts Wanted</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-2 gap-2">
-          <div>
-            <label class="block text-slate-400 mb-1">Seller Name / Stand #</label>
-            <input type="text" id="partLocation" placeholder="e.g. Pitch 42 or Green Morris Van" required class="w-full bg-slate-900 border border-slate-700 rounded p-2 text-white focus:outline-none focus:border-amber-500">
-          </div>
-          <div>
-            <label class="block text-slate-400 mb-1">Mobile Phone (For SMS/WhatsApp)</label>
-            <input type="tel" id="partPhone" placeholder="e.g. 07123456789" required class="w-full bg-slate-900 border border-slate-700 rounded p-2 text-white focus:outline-none focus:border-amber-500">
-          </div>
-        </div>
-
-        <div>
-          <label class="block text-slate-400 mb-1">Item Description / Condition</label>
-          <textarea id="partDesc" rows="2" placeholder="Brief details, condition, fitment notes..." class="w-full bg-slate-900 border border-slate-700 rounded p-2 text-white focus:outline-none focus:border-amber-500"></textarea>
-        </div>
-
-        <button type="submit" class="w-full py-2 bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold text-xs rounded transition">
-          Post Item to Live List
-        </button>
-      </form>
-    </div>
-  </div>
-
   <script>
-    // Demo seed data
-    const seedData = [
-      {
-        id: 1,
-        title: "Ford Escort Mk1 Mexico Steel Wheels (Set of 4)",
-        price: "180",
-        category: "Wheels",
-        location: "Pitch 12 (Red Transit)",
-        phone: "07700900123",
-        desc: "Original 5.5J x 13 steel wheels. Need refurbishing, straight rims."
-      },
-      {
-        id: 2,
-        title: "Pair of Weber 40 DCOE Carburettors",
-        price: "320",
-        category: "Engine",
-        location: "Stand B4 - RODGE Stand",
-        phone: "07700900456",
-        desc: "Italian made, matched pair. Includes cross linkage."
-      },
-      {
-        id: 3,
-        title: "WANTED: Peugeot 107 Alloy Wheels / Snetterton Caps",
-        price: "Offers",
-        category: "Wanted",
-        location: "Mobile at Show",
-        phone: "07700900789",
-        desc: "Looking for set of 4 good condition alloy wheels for grassroots project."
-      }
-    ];
-
+    let globalPartsData = [];
     let currentCategory = 'All';
 
     document.addEventListener('DOMContentLoaded', () => {
-      initStorage();
-      renderListings();
+      loadMasterJSON();
     });
 
-    function initStorage() {
-      if (!localStorage.getItem('autojumble_parts')) {
-        localStorage.setItem('autojumble_parts', JSON.stringify(seedData));
+    // Fetches live parts.json with cache-busting timestamp
+    async function loadMasterJSON() {
+      const container = document.getElementById('partsContainer');
+      const targetJson = `./parts.json?t=${Date.now()}`;
+
+      try {
+        const response = await fetch(targetJson, { cache: 'no-store' });
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+        
+        globalPartsData = await response.json();
+        renderListings();
+      } catch (err) {
+        console.error('Error loading parts.json:', err);
+        if (container) {
+          container.innerHTML = `
+            <div class="p-6 rounded-xl border border-amber-800/60 bg-slate-800 text-amber-200 text-xs text-center space-y-2">
+              <p class="font-bold">Master <code>parts.json</code> file not found.</p>
+              <p class="text-slate-400">Make sure <code>parts.json</code> is saved in the same GitHub repository root folder as this HTML file.</p>
+            </div>`;
+        }
       }
     }
 
-    function getParts() {
-      return JSON.parse(localStorage.getItem('autojumble_parts') || '[]');
-    }
-
     function renderListings() {
-      const parts = getParts();
       const container = document.getElementById('partsContainer');
-      
+      if (!container) return;
+
       const filtered = currentCategory === 'All' 
-        ? parts 
-        : parts.filter(p => p.category === currentCategory);
+        ? globalPartsData 
+        : globalPartsData.filter(p => p.category.toLowerCase().includes(currentCategory.toLowerCase()) || currentCategory.toLowerCase().includes(p.category.toLowerCase()));
 
       if (filtered.length === 0) {
-        container.innerHTML = `<p class="text-slate-500 text-xs italic text-center py-8 bg-slate-800 rounded-xl border border-slate-700">No parts found in this category.</p>`;
+        container.innerHTML = `<p class="text-slate-500 text-xs italic text-center py-8 bg-slate-800 rounded-xl border border-slate-700">No parts currently listed in this category.</p>`;
         return;
       }
 
       container.innerHTML = filtered.map(p => {
         const isWanted = p.category === 'Wanted';
+        const isSold = p.status && p.status.toUpperCase() === 'SOLD';
+        
         const msgText = encodeURIComponent(`Hi, I saw your listing for "${p.title}" on the Autojumble App. Is it still available to view today at ${p.location}?`);
         const whatsappUrl = `https://wa.me/${formatPhoneForWA(p.phone)}?text=${msgText}`;
         const smsUrl = `sms:${p.phone}?body=${msgText}`;
 
+        // Format price cleanly
+        let displayPrice = p.price ? p.price.toString().trim() : 'Offers';
+        if (!displayPrice.startsWith('£') && !displayPrice.toLowerCase().includes('offer')) {
+          displayPrice = '£' + displayPrice;
+        }
+
         return `
-          <div class="bg-slate-800 border ${isWanted ? 'border-amber-500/50 bg-amber-500/5' : 'border-slate-700'} rounded-xl p-4 shadow-md space-y-2">
+          <div class="bg-slate-800 border ${isSold ? 'border-slate-700/40 opacity-60' : isWanted ? 'border-amber-500/50 bg-amber-500/5' : 'border-slate-700'} rounded-xl p-4 shadow-md space-y-2">
             <div class="flex justify-between items-start gap-2">
               <div>
-                <span class="inline-block text-[10px] font-semibold px-2 py-0.5 rounded ${isWanted ? 'bg-amber-500 text-slate-900' : 'bg-slate-700 text-amber-400'} mb-1">${p.category}</span>
-                <h3 class="text-sm font-bold text-white leading-tight">${escapeHtml(p.title)}</h3>
+                <span class="inline-block text-[10px] font-semibold px-2 py-0.5 rounded ${isSold ? 'bg-slate-700 text-slate-400' : isWanted ? 'bg-amber-500 text-slate-900' : 'bg-slate-700 text-amber-400'} mb-1">
+                  ${isSold ? 'SOLD' : escapeHtml(p.category)}
+                </span>
+                <h3 class="text-sm font-bold ${isSold ? 'line-through text-slate-400' : 'text-white'} leading-tight">${escapeHtml(p.title)}</h3>
               </div>
-              <span class="text-sm font-extrabold text-amber-400 font-mono whitespace-nowrap">${p.price.toLowerCase().includes('offer') ? 'Offers' : '£' + escapeHtml(p.price)}</span>
+              <span class="text-sm font-extrabold ${isSold ? 'text-slate-500' : 'text-amber-400'} font-mono whitespace-nowrap">${escapeHtml(displayPrice)}</span>
             </div>
 
             <p class="text-slate-300 text-xs leading-relaxed">${escapeHtml(p.desc || 'No description provided.')}</p>
@@ -194,70 +132,51 @@
                 ${escapeHtml(p.location)}
               </span>
 
-              <div class="flex gap-2 w-full sm:w-auto">
-                <a href="${smsUrl}" class="flex-1 sm:flex-none text-center bg-slate-700 hover:bg-slate-600 text-slate-200 text-[11px] font-semibold py-1 px-3 rounded border border-slate-600 transition">
-                  SMS
-                </a>
-                <a href="${whatsappUrl}" target="_blank" class="flex-1 sm:flex-none text-center bg-emerald-600 hover:bg-emerald-500 text-white text-[11px] font-semibold py-1 px-3 rounded transition">
-                  WhatsApp / Reserve
-                </a>
-              </div>
+              ${isSold ? `
+                <span class="text-xs text-slate-500 font-semibold italic">Item Collected</span>
+              ` : `
+                <div class="flex gap-2 w-full sm:w-auto">
+                  <a href="${smsUrl}" class="flex-1 sm:flex-none text-center bg-slate-700 hover:bg-slate-600 text-slate-200 text-[11px] font-semibold py-1 px-3 rounded border border-slate-600 transition">
+                    SMS
+                  </a>
+                  <a href="${whatsappUrl}" target="_blank" class="flex-1 sm:flex-none text-center bg-emerald-600 hover:bg-emerald-500 text-white text-[11px] font-semibold py-1 px-3 rounded transition">
+                    WhatsApp / Reserve
+                  </a>
+                </div>
+              `}
             </div>
           </div>
         `;
       }).join('');
     }
 
-    function filterCategory(cat) {
+    function filterCategory(cat, e) {
       currentCategory = cat;
       document.querySelectorAll('.cat-btn').forEach(btn => {
         btn.classList.remove('bg-amber-500', 'text-slate-900', 'font-bold');
         btn.classList.add('bg-slate-800', 'text-slate-300');
       });
 
-      event.target.classList.remove('bg-slate-800', 'text-slate-300');
-      event.target.classList.add('bg-amber-500', 'text-slate-900', 'font-bold');
+      if (e && e.target) {
+        e.target.classList.remove('bg-slate-800', 'text-slate-300');
+        e.target.classList.add('bg-amber-500', 'text-slate-900', 'font-bold');
+      }
       
       renderListings();
     }
 
-    function handlePartSubmit(event) {
-      event.preventDefault();
-      const parts = getParts();
-
-      const newPart = {
-        id: Date.now(),
-        title: document.getElementById('partTitle').value.trim(),
-        price: document.getElementById('partPrice').value.trim(),
-        category: document.getElementById('partCategory').value,
-        location: document.getElementById('partLocation').value.trim(),
-        phone: document.getElementById('partPhone').value.trim(),
-        desc: document.getElementById('partDesc').value.trim()
-      };
-
-      parts.unshift(newPart);
-      localStorage.setItem('autojumble_parts', JSON.stringify(parts));
-
-      document.getElementById('partForm').reset();
-      toggleModal('addModal');
-      renderListings();
-    }
-
     function exportJSON() {
-      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(getParts(), null, 2));
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(globalPartsData, null, 2));
       const downloadAnchor = document.createElement('a');
       downloadAnchor.setAttribute("href", dataStr);
-      downloadAnchor.setAttribute("download", "autojumble-parts.json");
+      downloadAnchor.setAttribute("download", "parts.json");
       document.body.appendChild(downloadAnchor);
       downloadAnchor.click();
       downloadAnchor.remove();
     }
 
-    function toggleModal(id) {
-      document.getElementById(id).classList.toggle('hidden');
-    }
-
     function formatPhoneForWA(phone) {
+      if (!phone) return '';
       let cleaned = phone.replace(/\D/g, '');
       if (cleaned.startsWith('0')) cleaned = '44' + cleaned.substring(1);
       return cleaned;
