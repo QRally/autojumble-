@@ -19,7 +19,7 @@
     "desc": "Original 5.5J x 13 steel wheels. Need refurbishing, straight rims.",
     "status": "Available"
   },
-    {
+  {
     "id": 3,
     "title": "Ford Escort Mk1 RS2000 Wheels (Set of 4)",
     "price": "£180",
@@ -29,9 +29,9 @@
     "desc": "Original 5.5J x 13 steel wheels. Need refurbishing, straight rims.",
     "status": "Available"
   },
-    {
+  {
     "id": 4,
-    "title": "Morris 1000 Engine ",
+    "title": "Morris 1000 Engine",
     "price": "£275",
     "category": "Engine",
     "location": "Pitch 37 (White Transit)",
@@ -47,6 +47,56 @@
     "location": "Stand B4 - RODGE Stand",
     "phone": "07700900789",
     "desc": "Italian made, matched pair. Includes cross linkage.",
+    "status": "SOLD"
+  },
+  {
+    "id": 6,
+    "title": "Ford Sierra Cosworth YBP Cylinder Head",
+    "price": "£850",
+    "category": "Engine",
+    "location": "Stand 18",
+    "phone": "07700900112",
+    "desc": "Genuine 4x4 head, pressure tested, minimal skimming, bare.",
+    "status": "Available"
+  },
+  {
+    "id": 7,
+    "title": "BMC A-Series Straight-Cut Close Ratio Gearbox",
+    "price": "£450",
+    "category": "Transmission",
+    "location": "Pitch 5 (Blue Sprinter)",
+    "phone": "07700900223",
+    "desc": "Ribcase casing, Minisport internals, low mileage since rebuild.",
+    "status": "Available"
+  },
+  {
+    "id": 8,
+    "title": "Peugeot 205 GTI 1.9 Speedline Alloy Wheels (Set of 4)",
+    "price": "£240",
+    "category": "Wheels",
+    "location": "Stand C12",
+    "phone": "07700900334",
+    "desc": "Original anthracite finish, minor curb rash, tyres need replacing.",
+    "status": "Available"
+  },
+  {
+    "id": 9,
+    "title": "Ford RS 3-Spoke Leather Steering Wheel",
+    "price": "£160",
+    "category": "Interior",
+    "location": "Pitch 22",
+    "phone": "07700900445",
+    "desc": "Original OEM wheel, leather showing light patina, includes center cap.",
+    "status": "Available"
+  },
+  {
+    "id": 10,
+    "title": "Lancia Delta Integrale Evo Rear Spoiler",
+    "price": "£310",
+    "category": "Bodywork",
+    "location": "Stand A9",
+    "phone": "07700900556",
+    "desc": "Original adjustable rear wing in factory primer, mounting brackets included.",
     "status": "SOLD"
   }
 ]
