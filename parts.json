@@ -88,9 +88,29 @@
     "phone": "07700900445",
     "desc": "Original OEM wheel, leather showing light patina, includes center cap.",
     "status": "Available"
+   },
+    {
+    "id": 10,
+    "title": "Escort Mk3 RS1600i fuel tank sender",
+    "price": "£150",
+    "category": "Engine",
+    "location": "Pitch 27",
+    "phone": "07736890445",
+    "desc": "Original OEM New Old. Stock.",
+    "status": "Available"
+   },
+   {
+    "id": 11,
+    "title": "Original Ford ECU units and looms.",
+    "price": "£POA",
+    "category": "Electrical",
+    "location": "Pitch 50",
+    "phone": "07736826947",
+    "desc": "Original OEM New Old. Stock.",
+    "status": "Available"
   },
   {
-    "id": 10,
+    "id": 12,
     "title": "Lancia Delta Integrale Evo Rear Spoiler",
     "price": "£310",
     "category": "Bodywork",
