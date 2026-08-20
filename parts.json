@@ -19,8 +19,28 @@
     "desc": "Original 5.5J x 13 steel wheels. Need refurbishing, straight rims.",
     "status": "Available"
   },
-  {
+    {
     "id": 3,
+    "title": "Ford Escort Mk1 RS2000 Wheels (Set of 4)",
+    "price": "£180",
+    "category": "Wheels",
+    "location": "Pitch 12 (Red Transit)",
+    "phone": "077009475456",
+    "desc": "Original 5.5J x 13 steel wheels. Need refurbishing, straight rims.",
+    "status": "Available"
+  },
+    {
+    "id": 4,
+    "title": "Morris 1000 Engine ",
+    "price": "£275",
+    "category": "Engine",
+    "location": "Pitch 37 (White Transit)",
+    "phone": "07700900456",
+    "desc": "1098 cc excellent recent rebuild, complete.",
+    "status": "Available"
+  },
+  {
+    "id": 5,
     "title": "Pair of Weber 40 DCOE Carburettors",
     "price": "£320",
     "category": "Engine",
