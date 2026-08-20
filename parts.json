@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "title": "Ford Escort Twin Cam, Block fresh rebore",
+    "price": "£125",
+    "category": "Engine",
+    "location": "Stand 42",
+    "phone": "07700900123",
+    "desc": "Excellent condition, ready for assembly.",
+    "status": "Available"
+  },
+  {
+    "id": 2,
+    "title": "Ford Escort Mk1 Mexico Steel Wheels (Set of 4)",
+    "price": "£180",
+    "category": "Wheels",
+    "location": "Pitch 12 (Red Transit)",
+    "phone": "07700900456",
+    "desc": "Original 5.5J x 13 steel wheels. Need refurbishing, straight rims.",
+    "status": "Available"
+  },
+  {
+    "id": 3,
+    "title": "Pair of Weber 40 DCOE Carburettors",
+    "price": "£320",
+    "category": "Engine",
+    "location": "Stand B4 - RODGE Stand",
+    "phone": "07700900789",
+    "desc": "Italian made, matched pair. Includes cross linkage.",
+    "status": "SOLD"
+  }
+]
